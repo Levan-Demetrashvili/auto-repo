@@ -13,13 +13,15 @@ jobs:
     steps:
       - name: Download repo
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
         
       - name: Set up Node.js
         uses: actions/setup-node@v3
 
-      - name: Install write-good
-        run: npm install -g write-good
+      - name: Install grammarly-cli
+        run: npm install -g grammarly-cli
 
-      - name: Run write-good on .md  files
+      - name: Run grammarly-cli on .md  files
         run: |
-          find . -name "*.md" | xargs -n1 write-good || true
+          find . -name "*.md" | xargs -n1 grammarly --fix || true
