@@ -22,4 +22,4 @@ jobs:
 
       - name: Run write-good on .md  files
         run: |
-          find . -name "*.md" -o | xargs -n1 write-good || true
+          find . -name "*.md" | xargs -n1 write-good || true
