@@ -1,19 +1,22 @@
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types: [opened, reopened, synchronize]
+      
 
-name: "Trigger: Push action"
+name: "Trigger: Pull Request"
 permissions: {}
 
 jobs:
-  shellcheck:
-    name: Shellcheck
+  checkTypo:
+    name: checkTypo
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          format: tty
-          severity: error
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+
+      - name: Install write-good
+        run: npm install -g write-good
+
+      - name: Run write-good on .md  files
+        run: |
+          find . -name "*.md" -o | xargs -n1 write-good || true
