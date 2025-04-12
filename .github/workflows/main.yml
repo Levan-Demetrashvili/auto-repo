@@ -11,6 +11,9 @@ jobs:
     name: checkTypo
     runs-on: ubuntu-latest
     steps:
+      - name: Download repo
+        uses: actions/checkout@v4
+        
       - name: Set up Node.js
         uses: actions/setup-node@v3
 
